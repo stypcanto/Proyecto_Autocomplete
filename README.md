@@ -4,6 +4,16 @@ Este proyecto es una aplicación web simple que implementa una funcionalidad de 
 
 Cuando un usuario escribe un nombre, la aplicación consulta la base de datos y devuelve sugerencias que coinciden con lo escrito (`LIKE 'Pe%'` por ejemplo).
 
+---
+
+## 🌐 Proyecto en línea
+
+▶️ Este proyecto tiene un deploy en el siguiente enlace:
+
+👉 **[https://proyecto-autocomplete.onrender.com/](https://proyecto-autocomplete.onrender.com/)**
+
+---
+
 ## 🧱 Estructura del proyecto
 
 ```bash
@@ -28,11 +38,15 @@ pagina_autocomplete/
 
 ## 🚀 Tecnologías usadas
 
-- Java 17+
-- Servlets (Jakarta EE 6)
-- Apache Tomcat 10
-- PostgreSQL 15
-- Docker / Docker Compose
+⚙️ Java 17+
+
+🌐 Servlets (Jakarta EE 6)
+
+🐱 Apache Tomcat 10
+
+🐘 PostgreSQL 15
+
+🐳 Docker / Docker Compose
 
 ## 🐳 Cómo levantar el proyecto
 
@@ -58,15 +72,15 @@ pagina_autocomplete/
     ```
 4. Los resultado que tuve fueron:
 
-- Verificación de datos autocomplete a nivel HTTP
+🔎 Autocompletado desde el navegador
 
 ![Nombre descriptivo](documents/image1.png)
 
-- Validando la conexión de datos a nivel JSON
+📦 Respuesta en formato JSON
 
 ![Nombre descriptivo](documents/image2.png)
 
-- Validando la conexión de datos a nivel de BD Postgress
+🧮 Base de datos PostgreSQL
 
 ![Nombre descriptivo](documents/image3.png)
 
@@ -113,6 +127,8 @@ volumes:
 ## 🧑‍💻Autor
 
 - Ing. Styp Canto Rondón
-- Tarea 2
--  Curso Java de Cibertec
+- Proyecto académico - Curso Java Cibertec (Tarea 2)
+
+##  🚀 Despliegue en la nube
+- Este proyecto está desplegado gratuitamente en Render.
 
