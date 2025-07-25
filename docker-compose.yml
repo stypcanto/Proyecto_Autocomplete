@@ -11,11 +11,10 @@ services:
     depends_on:
       - db                      # Asegura que la base de datos esté levantada antes de iniciar Tomcat
     environment:
-      DB_HOST: db               # Host para la base de datos (nombre del servicio)
-      DB_PORT: 5432             # Puerto de conexión a PostgreSQL
-      DB_NAME: autocomplete     # Nombre de la base de datos usada en la aplicación
-      DB_USER: postgres         # Usuario para la base de datos
-      DB_PASSWORD: postgres     # Contraseña para la base de datos
+      DB_URL: jdbc:postgresql://db:5432/autocomplete             # Host para la base de datos (nombre del servicio)
+      DB_USER: postgres         # Puerto de conexión a PostgreSQL
+      DB_PASSWORD: postgres     # Nombre de la base de datos usada en la aplicación
+
     networks:
       - autocomplete_net        # Red interna para comunicación entre servicios
 
