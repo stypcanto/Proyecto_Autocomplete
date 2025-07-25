@@ -1,0 +1,55 @@
+version: "3.8"
+
+services:
+  tomcat:
+    build:
+      context: .                # Construye la imagen usando el Dockerfile en el directorio actual
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"             # Mapea el puerto 8080 del contenedor al puerto 8080 del host
+    container_name: pagina_autocomplete  # Nombre personalizado para el contenedor Tomcat
+    depends_on:
+      - db                      # Asegura que la base de datos esté levantada antes de iniciar Tomcat
+    environment:
+      DB_HOST: db               # Host para la base de datos (nombre del servicio)
+      DB_PORT: 5432             # Puerto de conexión a PostgreSQL
+      DB_NAME: autocomplete     # Nombre de la base de datos usada en la aplicación
+      DB_USER: postgres         # Usuario para la base de datos
+      DB_PASSWORD: postgres     # Contraseña para la base de datos
+    networks:
+      - autocomplete_net        # Red interna para comunicación entre servicios
+
+  db:
+    image: postgres:15           # Imagen oficial de PostgreSQL versión 15
+    container_name: postgres_autocomplete  # Nombre personalizado para el contenedor de la DB
+    restart: always              # Reinicia el contenedor automáticamente en caso de falla
+    environment:
+      POSTGRES_DB: autocomplete  # Nombre de la base de datos que se creará inicialmente
+      POSTGRES_USER: postgres    # Usuario administrador de la base de datos
+      POSTGRES_PASSWORD: postgres # Contraseña del usuario administrador
+    ports:
+      - "5432:5432"              # Mapea el puerto 5432 para acceso externo (útil para psql local)
+    volumes:
+      - db_data:/var/lib/postgresql/data  # Volumen Docker para persistir datos y evitar pérdida al reiniciar/eliminar contenedor
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql  # Script de inicialización (solo se ejecuta la primera vez que crea la DB)
+    networks:
+      - autocomplete_net          # Misma red interna para comunicar con el servicio Tomcat
+
+volumes:
+  db_data:                       # Volumen Docker que almacena físicamente los datos de la base PostgreSQL
+
+networks:
+  autocomplete_net:              # Red Docker personalizada para conectar ambos contenedores
+
+# -------------------------------
+# RECOMENDACIONES IMPORTANTES:
+# - Para no perder datos al detener el proyecto:
+#   Ejecuta "docker-compose down" SIN la opción "-v"
+#   Esto detiene y elimina los contenedores pero conserva el volumen "db_data" con tus datos.
+#
+# - El volumen solo se elimina si usas explícitamente:
+#   "docker-compose down -v" o "docker volume rm db_data"
+#
+# - El archivo "init.sql" solo se ejecuta la primera vez que se crea la base de datos en el volumen.
+#   Si el volumen ya tiene datos, no se vuelve a ejecutar.
+# -------------------------------
